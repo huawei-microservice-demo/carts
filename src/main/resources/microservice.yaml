@@ -1,0 +1,18 @@
+APPLICATION_ID: carts
+service_description:
+  name: carts
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://localhost:30100
+  grpc:
+    address: 0.0.0.0:9090
+  rest:
+    address: 0.0.0.0:7072
+  highway:
+    address: 0.0.0.0:7070?sslEnabled=false
+  handler:
+    chain:
+      Provider:
+        default: bizkeeper-provider
