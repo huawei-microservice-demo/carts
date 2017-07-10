@@ -1,11 +1,16 @@
 package works.weave.socks.cart.repositories;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import works.weave.socks.cart.entities.Cart;
+
 import java.util.List;
 
-import org.junit.Before;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import works.weave.socks.cart.entities.Cart;
+import static org.junit.Assert.assertEquals;
 
 //@RunWith(SpringRunner.class)
 //@EnableAutoConfiguration
@@ -27,7 +32,7 @@ public class ITCartRepository {
         //assertEquals(original, saved);
     }
 
-    // @Test
+   // @Test
     public void testCartGetDefault() {
         Cart original = new Cart("customerId");
         Cart saved = cartRepository.save(original);
@@ -36,7 +41,7 @@ public class ITCartRepository {
         //assertEquals(original, saved);
     }
 
-    // @Test
+   // @Test
     public void testSearchCustomerById() {
         Cart original = new Cart("customerId");
         cartRepository.save(original);

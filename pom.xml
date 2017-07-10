@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.servicecomb</groupId>
-    <artifactId>carts</artifactId>
+    <artifactId>carts_servicecomb</artifactId>
     <packaging>jar</packaging>
 
     <name>carts</name>
@@ -53,6 +53,11 @@
 		</dependencies>
 	</dependencyManagement>
     <dependencies>
+    	<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.7</version>
+		</dependency>
     	<dependency>
 			<groupId>io.servicecomb</groupId>
 			<artifactId>spring-boot-starter-provider</artifactId>
@@ -110,6 +115,21 @@
             <artifactId>openpojo</artifactId>
             <version>0.8.4</version>
             <scope>test</scope>
+        </dependency>
+         <dependency>
+            <groupId>com.huawei.paas.cse</groupId>
+            <artifactId>foundation-auth</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.huawei.paas.cse</groupId>
+            <artifactId>foundation-config-cc</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.huawei.paas.cse</groupId>
+            <artifactId>cse-handler-tracing</artifactId>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 

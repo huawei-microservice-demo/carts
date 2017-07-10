@@ -26,8 +26,8 @@ public class UnitFirstResultOrDefault {
     @Test
     public void whenMultipleNotEmptyUseFirst() {
         String testValue = "test";
-        FirstResultOrDefault<String> CUT =
-            new FirstResultOrDefault<>(Arrays.asList(testValue, "test2"), () -> "nonDefault");
+        FirstResultOrDefault<String> CUT = new FirstResultOrDefault<>(Arrays.asList(testValue, "test2"), () ->
+                "nonDefault");
         assertThat(CUT.get(), equalTo(testValue));
     }
 }

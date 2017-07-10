@@ -12,9 +12,7 @@ public class Item {
 
     @NotNull(message = "Item Id must not be null")
     private String itemId;
-
     private int quantity;
-
     private float unitPrice;
 
     public Item(String id, String itemId, int quantity, float unitPrice) {
@@ -64,10 +62,8 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Item item = (Item) o;
 

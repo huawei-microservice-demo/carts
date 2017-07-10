@@ -7,7 +7,6 @@ import java.util.function.Supplier;
 
 public class CartResource implements Resource<Cart>, HasContents<CartContentsResource> {
     private final CartDAO cartRepository;
-
     private final String customerId;
 
     public CartResource(CartDAO cartRepository, String customerId) {

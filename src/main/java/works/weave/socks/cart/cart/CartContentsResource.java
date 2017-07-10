@@ -13,7 +13,6 @@ public class CartContentsResource implements Contents<Item> {
     private final Logger LOG = getLogger(getClass());
 
     private final CartDAO cartRepository;
-
     private final Supplier<Resource<Cart>> parent;
 
     public CartContentsResource(CartDAO cartRepository, Supplier<Resource<Cart>> parent) {

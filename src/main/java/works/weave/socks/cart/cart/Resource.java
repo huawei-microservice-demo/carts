@@ -15,7 +15,6 @@ public interface Resource<T> {
 
     class CartFake implements Resource<Cart> {
         private final String customerId;
-
         private Cart cart = null;
 
         public CartFake(String customerId) {

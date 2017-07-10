@@ -10,9 +10,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class FoundItem implements Supplier<Item> {
     private final Logger LOG = getLogger(getClass());
-
     private final Supplier<List<Item>> items;
-
     private final Supplier<Item> item;
 
     public FoundItem(Supplier<List<Item>> items, Supplier<Item> item) {
@@ -22,16 +20,14 @@ public class FoundItem implements Supplier<Item> {
 
     @Override
     public Item get() {
-        return items.get()
-                .stream()
+        return items.get().stream()
                 .filter(item.get()::equals)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find item in cart"));
     }
 
     public boolean hasItem() {
-        boolean present = items.get()
-                .stream()
+        boolean present = items.get().stream()
                 .filter(item.get()::equals)
                 .findFirst()
                 .isPresent();

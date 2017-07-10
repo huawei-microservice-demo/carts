@@ -10,9 +10,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 public class UnitCartContentsResource {
     private final String customerId = "testId";
-
     private final CartDAO.Fake fakeDAO = new CartDAO.Fake();
-
     private final Resource<Cart> fakeCartResource = new Resource.CartFake(customerId);
 
     @Test

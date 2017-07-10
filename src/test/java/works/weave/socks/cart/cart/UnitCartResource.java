@@ -15,7 +15,6 @@ import static org.junit.Assert.assertThat;
 public class UnitCartResource {
 
     private final String customerId = "testId";
-
     private final CartDAO.Fake fake = new CartDAO.Fake();
 
     @Test
@@ -75,10 +74,10 @@ public class UnitCartResource {
         cartResourceToMerge.contents().get().add(() -> person2Item).run();
         cartResource.merge(cartResourceToMerge.value().get()).run();
         assertThat(cartResource.contents().get().contents().get(), hasSize(2));
-        assertThat(cartResource.contents().get().contents().get().get(0),
-                anyOf(equalTo(person1Item), equalTo(person2Item)));
-        assertThat(cartResource.contents().get().contents().get().get(1),
-                anyOf(equalTo(person1Item), equalTo(person2Item)));
+        assertThat(cartResource.contents().get().contents().get().get(0), anyOf(equalTo(person1Item), equalTo
+                (person2Item)));
+        assertThat(cartResource.contents().get().contents().get().get(1), anyOf(equalTo(person1Item), equalTo
+                (person2Item)));
         assertThat(cartResourceToMerge.contents().get().contents().get(), hasSize(1));
     }
 }

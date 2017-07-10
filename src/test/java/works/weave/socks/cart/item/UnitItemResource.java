@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
+
 public class UnitItemResource {
     private ItemDAO itemDAO = new ItemDAO.Fake();
 

@@ -12,10 +12,8 @@ import java.util.List;
 public class Cart {
     @NotNull
     public String customerId; // Public instead of getters/setters.
-
     @Id
     private String id;
-
     @DBRef
     private List<Item> items = new ArrayList<>();
 
@@ -52,17 +50,13 @@ public class Cart {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Cart cart = (Cart) o;
 
-        if (customerId != null ? !customerId.equals(cart.customerId) : cart.customerId != null)
-            return false;
-        if (id != null ? !id.equals(cart.id) : cart.id != null)
-            return false;
+        if (customerId != null ? !customerId.equals(cart.customerId) : cart.customerId != null) return false;
+        if (id != null ? !id.equals(cart.id) : cart.id != null) return false;
 
         return true;
     }
