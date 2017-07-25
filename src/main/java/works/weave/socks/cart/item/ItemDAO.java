@@ -28,8 +28,12 @@ public interface ItemDAO {
 
         @Override
         public Item findOne(String id) {
-            return store.entrySet().stream().filter(i -> i.getValue().id().equals(id)).map(Map.Entry::getValue)
-                    .findFirst().orElse(null);
+            return store.entrySet()
+                    .stream()
+                    .filter(i -> i.getValue().id().equals(id))
+                    .map(Map.Entry::getValue)
+                    .findFirst()
+                    .orElse(null);
         }
     }
 }

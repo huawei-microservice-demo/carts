@@ -26,57 +26,62 @@ public class HTTPMonitoringInterceptor implements HandlerInterceptor {
             .register();
 
     private static final String startTimeKey = "startTime";
-//The below commented out ones are to stop tomcat server.Changes will be done if they are required.
-//    @Autowired
+
+    // The below commented out ones are to stop tomcat server.Changes will be
+    // done if they are required.
+    // @Autowired
     ResourceMappings mappings;
-//    @Autowired
+
+    // @Autowired
     JpaHelper jpaHelper;
-//    @Autowired
+
+    // @Autowired
     RepositoryRestConfiguration repositoryConfiguration;
-//    @Autowired
+
+    // @Autowired
     ApplicationContext applicationContext;
-//    @Autowired
+
+    // @Autowired
     RequestMappingHandlerMapping requestMappingHandlerMapping;
+
     private Set<PatternsRequestCondition> urlPatterns;
+
     @Value("${spring.application.name:orders}")
     private String serviceName;
 
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse
-            httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+            Object o) throws Exception {
         httpServletRequest.setAttribute(startTimeKey, System.nanoTime());
         return true;
     }
 
     @Override
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse
-            httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
+            ModelAndView modelAndView) throws Exception {
         long start = (long) httpServletRequest.getAttribute(startTimeKey);
         long elapsed = System.nanoTime() - start;
         double seconds = (double) elapsed / 1000000000.0;
         String matchedUrl = getMatchingURLPattern(httpServletRequest);
         if (!matchedUrl.equals("")) {
-            requestLatency.labels(
-                    serviceName,
+            requestLatency.labels(serviceName,
                     httpServletRequest.getMethod(),
                     matchedUrl,
-                    Integer.toString(httpServletResponse.getStatus())
-            ).observe(seconds);
+                    Integer.toString(httpServletResponse.getStatus())).observe(seconds);
         }
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse
-            httpServletResponse, Object o, Exception e) throws Exception {
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+            Object o, Exception e) throws Exception {
     }
 
     private String getMatchingURLPattern(HttpServletRequest httpServletRequest) {
         String res = "";
         for (PatternsRequestCondition pattern : getUrlPatterns()) {
-            if (pattern.getMatchingCondition(httpServletRequest) != null &&
-                    !httpServletRequest.getServletPath().equals("/error")) {
-                res = pattern.getMatchingCondition(httpServletRequest).getPatterns().iterator()
-                        .next();
+            if (pattern.getMatchingCondition(httpServletRequest) != null
+                    && !httpServletRequest.getServletPath().equals("/error")) {
+                res = pattern.getMatchingCondition(httpServletRequest).getPatterns().iterator().next();
                 break;
             }
         }
@@ -86,15 +91,15 @@ public class HTTPMonitoringInterceptor implements HandlerInterceptor {
     private Set<PatternsRequestCondition> getUrlPatterns() {
         if (this.urlPatterns == null) {
             this.urlPatterns = new HashSet<>();
-            requestMappingHandlerMapping.getHandlerMethods().forEach((mapping, handlerMethod) ->
-                    urlPatterns.add(mapping.getPatternsCondition()));
-            RepositoryRestHandlerMapping repositoryRestHandlerMapping = new
-                    RepositoryRestHandlerMapping(mappings, repositoryConfiguration);
+            requestMappingHandlerMapping.getHandlerMethods()
+                    .forEach((mapping, handlerMethod) -> urlPatterns.add(mapping.getPatternsCondition()));
+            RepositoryRestHandlerMapping repositoryRestHandlerMapping = new RepositoryRestHandlerMapping(mappings,
+                    repositoryConfiguration);
             repositoryRestHandlerMapping.setJpaHelper(jpaHelper);
             repositoryRestHandlerMapping.setApplicationContext(applicationContext);
             repositoryRestHandlerMapping.afterPropertiesSet();
-            repositoryRestHandlerMapping.getHandlerMethods().forEach((mapping, handlerMethod) ->
-                    urlPatterns.add(mapping.getPatternsCondition()));
+            repositoryRestHandlerMapping.getHandlerMethods()
+                    .forEach((mapping, handlerMethod) -> urlPatterns.add(mapping.getPatternsCondition()));
         }
         return this.urlPatterns;
     }

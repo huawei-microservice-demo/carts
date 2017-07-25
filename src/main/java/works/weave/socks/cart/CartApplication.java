@@ -10,7 +10,6 @@ import io.servicecomb.springboot.starter.provider.EnableServiceComb;
 @EnablePrometheusEndpoint
 public class CartApplication {
 	public static void main(String[] args) {
-			SpringApplication.run(CartApplication.class,args);
+		SpringApplication.run(CartApplication.class, args);
 	}
 }
-

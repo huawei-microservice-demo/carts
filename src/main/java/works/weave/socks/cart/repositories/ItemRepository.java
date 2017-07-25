@@ -7,4 +7,3 @@ import works.weave.socks.cart.entities.Item;
 @RepositoryRestResource
 public interface ItemRepository extends MongoRepository<Item, String> {
 }
-

@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 public class CartResource implements Resource<Cart>, HasContents<CartContentsResource> {
     private final CartDAO cartRepository;
+
     private final String customerId;
 
     public CartResource(CartDAO cartRepository, String customerId) {
@@ -26,12 +27,10 @@ public class CartResource implements Resource<Cart>, HasContents<CartContentsRes
 
     @Override
     public Supplier<Cart> value() {
-        return new FirstResultOrDefault<>(
-                cartRepository.findByCustomerId(customerId),
-                () -> {
-                    create().get();
-                    return value().get();
-                });
+        return new FirstResultOrDefault<>(cartRepository.findByCustomerId(customerId), () -> {
+            create().get();
+            return value().get();
+        });
     }
 
     @Override

@@ -26,27 +26,39 @@ public class ItemsController {
 
     @Autowired
     private ItemDAO itemDAO;
+
     @Autowired
     private CartsController cartsController;
+
     @Autowired
     private CartDAO cartDAO;
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/{customerId:.*}/items/{itemId:.*}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/{customerId:.*}/items/{itemId:.*}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
     public Item get(@PathVariable String customerId, @PathVariable String itemId) {
         return new FoundItem(() -> getItems(customerId), () -> new Item(itemId)).get();
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/{customerId:.*}/items/",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/{customerId:.*}/items/",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
     public List<Item> getItems(@PathVariable String customerId) {
         return cartsController.get(customerId).contents();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value = "/{customerId:.*}/items/",consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(
+            value = "/{customerId:.*}/items/",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.POST)
     public Item addToCart(@PathVariable String customerId, @RequestBody Item item) {
-        // If the item does not exist in the cart, create new one in the repository.
+        // If the item does not exist in the cart, create new one in the
+        // repository.
         FoundItem foundItem = new FoundItem(() -> cartsController.get(customerId).contents(), () -> item);
         if (!foundItem.hasItem()) {
             Supplier<Item> newItem = new ItemResource(itemDAO, () -> item).create();
@@ -75,7 +87,10 @@ public class ItemsController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping(value = "/{customerId:.*}/items/",consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PATCH)
+    @RequestMapping(
+            value = "/{customerId:.*}/items/",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.PATCH)
     public void updateItem(@PathVariable String customerId, @RequestBody Item item) {
         ItemResource itemResource = new ItemResource(itemDAO, () -> get(customerId, item.itemId()));
         LOG.debug("Merging item in cart for user: " + customerId + ", " + item);

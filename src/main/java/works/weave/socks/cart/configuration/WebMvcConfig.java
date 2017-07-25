@@ -14,6 +14,6 @@ public class WebMvcConfig {
 
     @Bean
     public MappedInterceptor myMappedInterceptor(HTTPMonitoringInterceptor interceptor) {
-        return new MappedInterceptor(new String[]{"/**"}, interceptor);
+        return new MappedInterceptor(new String[] {"/**"}, interceptor);
     }
 }

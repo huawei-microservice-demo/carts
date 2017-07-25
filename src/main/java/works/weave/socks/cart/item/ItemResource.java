@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 public class ItemResource implements Resource<Item> {
     private final ItemDAO itemRepository;
+
     private final Supplier<Item> item;
 
     public ItemResource(ItemDAO itemRepository, Supplier<Item> item) {
@@ -26,7 +27,8 @@ public class ItemResource implements Resource<Item> {
 
     @Override
     public Supplier<Item> value() {
-        return item;    // Basically a null method. Gets the item from the supplier.
+        return item; // Basically a null method. Gets the item from the
+                     // supplier.
     }
 
     @Override
