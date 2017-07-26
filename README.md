@@ -1,4 +1,3 @@
-# queue-master
 
 [![Build Status](https://travis-ci.org/microservices-demo/shipping.svg?branch=master)](https://travis-ci.org/microservices-demo/carts)
 [![](https://images.microbadger.com/badges/image/weaveworksdemos/carts.svg)](http://microbadger.com/images/weaveworksdemos/carts "Get your own image badge on microbadger.com")
